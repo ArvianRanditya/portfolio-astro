@@ -1,0 +1,101 @@
+/* src/styles/global.css */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    @apply bg-navy-900 text-slate-200 font-sans antialiased;
+    cursor: default;
+  }
+
+  ::selection {
+    @apply bg-accent-teal/30 text-white;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-navy-950;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-accent-teal/40 rounded-full;
+  }
+}
+
+@layer components {
+  /* Noise texture overlay */
+  .noise-overlay::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* Glow effect untuk aksen teal */
+  .glow-teal {
+    text-shadow: 0 0 20px rgba(100, 255, 218, 0.4);
+  }
+
+  /* Card hover effect */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    @apply hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40;
+    @apply hover:border-accent-teal/50;
+  }
+
+  /* Gradient mesh background */
+  .mesh-bg {
+    background-image:
+      radial-gradient(at 20% 20%, rgba(100, 255, 218, 0.04) 0px, transparent 50%),
+      radial-gradient(at 80% 10%, rgba(96, 165, 250, 0.05) 0px, transparent 50%),
+      radial-gradient(at 50% 80%, rgba(100, 255, 218, 0.03) 0px, transparent 50%);
+  }
+
+  /* Section title decoration */
+  .section-title::after {
+    content: '';
+    display: inline-block;
+    height: 1px;
+    width: 200px;
+    background: linear-gradient(to right, #64ffda30, transparent);
+    margin-left: 1rem;
+    vertical-align: middle;
+  }
+
+  /* Timeline connector line */
+  .timeline-line {
+    @apply absolute left-[7px] top-4 w-0.5 h-full bg-gradient-to-b from-accent-teal/40 to-transparent;
+  }
+
+  /* Animasi delay utilities */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

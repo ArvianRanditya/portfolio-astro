@@ -1,0 +1,16 @@
+node_modules
+
+# Astro Build Output & Internal
+dist/
+.astro/
+
+# Environment Variables (Sangat Penting!)
+.env
+.env.*
+!.env.example
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+README.md

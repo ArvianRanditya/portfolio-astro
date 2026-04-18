@@ -1,0 +1,164 @@
+---
+// src/components/Navbar.astro
+const navLinks = [
+  { href: '#home', label: 'Home' },
+  { href: '#education', label: 'Education' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+>
+  <nav
+    class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between"
+  >
+    <!-- Logo / Brand -->
+    <a
+      href="#home"
+      class="font-mono text-accent-teal font-medium tracking-wider text-sm hover:opacity-80 transition-opacity"
+    >
+      <span class="text-slate-400">&lt;</span>
+      Arvian Randitya
+      <span class="text-slate-400">/&gt;</span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="hidden md:flex items-center gap-8">
+      {
+        navLinks.map((link, i) => (
+          <li>
+            <a
+              href={link.href}
+              class="font-mono text-xs text-accent-slate hover:text-accent-teal transition-colors duration-200 tracking-wider"
+            >
+              <span class="text-accent-teal mr-1">0{i + 1}.</span>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- CTA Button -->
+    <a
+      href="/cv-nama-kamu.pdf"
+      target="_blank"
+      class="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded border border-accent-teal text-accent-teal font-mono text-xs hover:bg-accent-teal/10 transition-all duration-200"
+    >
+      <svg
+        class="w-3.5 h-3.5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+        ></path>
+      </svg>
+      Download CV
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-accent-slate hover:text-accent-teal transition-colors"
+      aria-label="Toggle menu"
+    >
+      <svg
+        id="icon-open"
+        class="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+      <svg
+        id="icon-close"
+        class="w-6 h-6 hidden"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile Dropdown Menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden bg-navy-950/95 backdrop-blur-md border-t border-white/5 px-6 py-6"
+  >
+    <ul class="flex flex-col gap-5">
+      {
+        navLinks.map((link, i) => (
+          <li>
+            <a
+              href={link.href}
+              class="mobile-nav-link font-mono text-sm text-accent-slate hover:text-accent-teal transition-colors"
+            >
+              <span class="text-accent-teal mr-2">0{i + 1}.</span>
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a
+      href="/cv-nama-kamu.pdf"
+      target="_blank"
+      class="mt-6 w-full inline-flex justify-center items-center gap-2 px-4 py-2.5 rounded border border-accent-teal text-accent-teal font-mono text-xs hover:bg-accent-teal/10 transition-all"
+    >
+      Download CV
+    </a>
+  </div>
+</header>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar?.classList.add('bg-navy-950/90', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
+    } else {
+      navbar?.classList.remove('bg-navy-950/90', 'backdrop-blur-md', 'border-b', 'border-white/5', 'shadow-lg');
+    }
+  });
+
+  // Mobile menu toggle
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  btn?.addEventListener('click', () => {
+    const isHidden = menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-nav-link').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
+</script>
